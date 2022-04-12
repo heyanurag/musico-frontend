@@ -13,30 +13,17 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Header from "./Header";
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="/">
-        Musico
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { Link, Navigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { isLoggedIn } from "../atoms";
+import Header from "./Header";
+import Copyright from "./Copyright";
 
 const Register = () => {
+  const loggedIn = useRecoilValue(isLoggedIn);
+
   const [mood, setMood] = useState("");
 
   const [nameError, setNameError] = useState(false);
@@ -102,9 +89,14 @@ const Register = () => {
     }
 
     if (submit) {
+      //PERFORM AXIOS POST HERE
       console.log(formData);
     }
   };
+
+  if (loggedIn) {
+    return <Navigate to="/app" state={{ from: "/" }} replace />;
+  }
 
   return (
     <>
