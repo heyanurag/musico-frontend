@@ -19,6 +19,6 @@ const localStorageEffect =
 
 export const isLoggedIn = atom({
   key: "isLoggedIn",
-  default: false,
+  default: true,
   effects_UNSTABLE: [localStorageEffect("isLoggedIn")],
 });
