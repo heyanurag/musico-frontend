@@ -1,5 +1,5 @@
 import { forwardRef, useState, useMemo } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -45,8 +45,6 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const styles = useStyles();
 
-  const location = useLocation();
-
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -73,8 +71,8 @@ const Header = (props) => {
 
   const drawer = (
     <div>
-      <Box sx={{ px: 2 }}>
-        <Typography align="center" variant="h1" pt={5}>
+      <Box sx={{ p: 2 }}>
+        <Typography align="center" variant="h1" pt={2}>
           🎶
         </Typography>
         <Typography
