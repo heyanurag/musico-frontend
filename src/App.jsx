@@ -3,15 +3,23 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import LaunchPad from "./components/LaunchPad";
-import Header from "./components/Header";
+import Header, { drawerWidth } from "./components/Header";
 
 import { Box, CssBaseline } from "@mui/material";
 
 const App = () => {
   return (
-    <>
+    <Box sx={{ display: "flex", color: "primary.main", height: "100vh" }}>
       <CssBaseline />
-      <Box sx={{ color: "primary.main", height: "100vh" }}>
+      <Header />
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 5,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
@@ -21,14 +29,13 @@ const App = () => {
             path="*"
             element={
               <>
-                <Header />
                 <p style={{ textAlign: "center" }}>There's nothing here!</p>
               </>
             }
           />
         </Routes>
       </Box>
-    </>
+    </Box>
   );
 };
 

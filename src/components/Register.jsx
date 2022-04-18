@@ -1,9 +1,7 @@
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -14,11 +12,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoggedIn } from "../atoms";
-import Header from "./Header";
 import Copyright from "./Copyright";
 
 const Register = () => {
@@ -99,107 +95,99 @@ const Register = () => {
   }
 
   return (
-    <>
-      <Header />
-      <Container component="main" maxWidth="xs">
-        <Box
-          sx={{
-            marginTop: 3,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 0.5, bgcolor: "secondary.dark" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 6,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 0.5, bgcolor: "secondary.dark" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="given-name"
+                name="Name"
+                required
+                fullWidth
+                id="Name"
+                label="Name"
+                autoFocus
+                error={nameError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                error={emailError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+                error={passError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="emotion-select-label">Mood</InputLabel>
+                <Select
+                  labelId="emotion-select-label"
+                  id="emotion-select"
+                  value={mood}
+                  label="Eg. Happy"
+                  name="mood"
+                  onChange={handleMoodChange}
+                  error={moodError}
+                  required
+                >
+                  <MenuItem value="Happy">Happy</MenuItem>
+                  <MenuItem value="Sad">Sad</MenuItem>
+                  <MenuItem value="Angry">Angry</MenuItem>
+                  <MenuItem value="Anxious">Anxious</MenuItem>
+                  <MenuItem value="Excited">Excited</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="Name"
-                  required
-                  fullWidth
-                  id="Name"
-                  label="Name"
-                  autoFocus
-                  error={nameError}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  error={emailError}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  error={passError}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id="emotion-select-label">Mood</InputLabel>
-                  <Select
-                    labelId="emotion-select-label"
-                    id="emotion-select"
-                    value={mood}
-                    label="Eg. Happy"
-                    name="mood"
-                    onChange={handleMoodChange}
-                    error={moodError}
-                    required
-                  >
-                    <MenuItem value="Happy">Happy</MenuItem>
-                    <MenuItem value="Sad">Sad</MenuItem>
-                    <MenuItem value="Angry">Angry</MenuItem>
-                    <MenuItem value="Anxious">Anxious</MenuItem>
-                    <MenuItem value="Excited">Excited</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
+            Sign Up
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link to="/login" variant="body2">
+                Already have an account? Login
+              </Link>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link to="/login" variant="body2">
-                  Already have an account? Login
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          </Grid>
         </Box>
-        <Copyright sx={{ mt: 3 }} />
-      </Container>
-    </>
+      </Box>
+      <Copyright sx={{ mt: 3 }} />
+    </Container>
   );
 };
 

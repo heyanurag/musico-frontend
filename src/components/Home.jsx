@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
-import Header from "./Header";
 
-import { Button, Stack } from "@mui/material";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const Home = () => {
   return (
     <>
-      <Header />
+      <Typography align="center" variant="h2" gutterBottom pt={5}>
+        Musico 🎶
+      </Typography>
+      <Typography align="center" gutterBottom>
+        Explore Top Music Powered by your Scrobbles!
+      </Typography>
       <Stack
         direction="row"
         spacing={2}
