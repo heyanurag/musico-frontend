@@ -19,18 +19,18 @@ import makeStyles from "@mui/styles/makeStyles";
 const useStyles = makeStyles((theme) => ({
   iconBtn: {
     position: "absolute",
-    top: "30%",
+    top: "35%",
     backgroundColor: theme.palette.primary.main,
     opacity: 0.8,
     "& .icon": {
-      fontSize: 40,
+      fontSize: 35,
       color: "#fff",
     },
     "&:hover .icon": {
       color: theme.palette.primary.main,
     },
     [theme.breakpoints.down("sm")]: {
-      top: "35%",
+      // top: "35%",
       "& .icon": {
         fontSize: 30,
       },

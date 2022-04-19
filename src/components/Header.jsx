@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     "& .icon": {
       color: "#fff",
     },
+    "&:hover .icon, &:hover .text ": {
+      color: theme.palette.primary.main,
+    }
   },
   inActive: {
     borderRadius: 15,
@@ -102,7 +105,7 @@ const Header = (props) => {
             <ListItemIcon>
               <Icon className="icon" />
             </ListItemIcon>
-            <ListItemText primary={name} />
+            <ListItemText className="text" primary={name} />
           </ListItem>
         ))}
       </List>
