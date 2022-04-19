@@ -89,7 +89,7 @@ const Header = (props) => {
         </Typography>
       </Box>
       <Divider />
-      <List>
+      <List sx={{ overflow: "hidden"}}>
         {listData.map(({ name, id, Icon, routeName }) => (
           <ListItem
             component={CustomLink}

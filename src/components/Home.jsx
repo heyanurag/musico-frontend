@@ -1,44 +1,29 @@
-import { Link } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
 
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import ImageSlider from "./ImageSlider";
 
 const Home = () => {
+  const handleSearch = (event) => {
+    if (event.keyCode !== 13 || event.target.value === "") return;
+
+    // fetch search result
+  };
+
   return (
     <>
-      <Typography align="center" variant="h2" gutterBottom pt={5}>
-        Musico 🎶
-      </Typography>
-      <Typography align="center" gutterBottom>
-        Explore Top Music Powered by your Scrobbles!
-      </Typography>
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{ display: "flex", justifyContent: "center", pt: 3 }}
-      >
-        <Button
-          color="secondary"
-          variant="outlined"
-          endIcon={<ArrowForwardIcon />}
-          component={Link}
-          to="/app"
-        >
-          Get Started
-        </Button>
-        <Button
-          color="secondary"
-          variant="outlined"
-          endIcon={<AppRegistrationIcon />}
-          component={Link}
-          to="/register"
-        >
-          Register
-        </Button>
-      </Stack>
+     {/* <Box sx={{display: "flex", flexDirection: "column"}}> */}
+      <TextField
+        fullWidth
+        id="search"
+        name="search"
+        label="Search Music"
+        placeholder="E.g. Uptown Fun"
+        onKeyDown={handleSearch}
+      />
+
+      <ImageSlider />
+      {/* <Box compo sx={{flex: 1, bgcolor: "#ff0000"}} /> */}
     </>
   );
 };
