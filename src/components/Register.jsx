@@ -11,15 +11,23 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Slide from "@mui/material/Slide";
+import Snackbar from "@mui/material/Snackbar";
 
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { user } from "../atoms";
+import axiosInstance from "../axios";
 import Copyright from "./Copyright";
+import AlertDialog from "./AlertDialog";
+
+function TransitionLeft(props) {
+  return <Slide {...props} direction="left" />;
+}
 
 const Register = () => {
   const loggedInUser = useRecoilValue(user);
-
+  const navigate = useNavigate();
   const [mood, setMood] = useState("");
 
   const [nameError, setNameError] = useState(false);
@@ -27,7 +35,21 @@ const Register = () => {
   const [passError, setPassError] = useState(false);
   const [moodError, setMoodError] = useState(false);
 
+  //Snackbar
+  const [open, setOpen] = useState(false);
+  const [transition, setTransition] = useState(undefined);
+
+  //AlertDialog
+  const [openState, setOpenState] = useState(false);
+  const openDialog = () => setOpenState(true);
+  const closeDialog = () => {
+    setOpenState(false);
+    navigate("/login");
+  };
+
   const handleMoodChange = (event) => setMood(event.target.value);
+
+  const handleClose = () => setOpen(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,7 +65,7 @@ const Register = () => {
       email: data.get("email").trim(),
       password: data.get("password").trim(),
       name: data.get("Name").trim(),
-      mood: data.get("mood").trim(),
+      // mood: data.get("mood").trim(),
     };
 
     let submit = true;
@@ -78,15 +100,29 @@ const Register = () => {
     }
 
     //mood validation
-    if (formData.mood === "") {
-      setMoodError(true);
-      submit = false;
-      console.log(formData.mood);
-    }
+    // if (formData.mood === "") {
+    //   setMoodError(true);
+    //   submit = false;
+    //   console.log(formData.mood);
+    // }
 
     if (submit) {
       //PERFORM AXIOS POST HERE
       console.log(formData);
+      axiosInstance
+        .post(`auth/register`, formData)
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+          openDialog();
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response.status === 400) {
+            setTransition(() => TransitionLeft);
+            setOpen(true);
+          }
+        });
     }
   };
 
@@ -187,6 +223,20 @@ const Register = () => {
         </Box>
       </Box>
       <Copyright sx={{ mt: 3 }} />
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={transition}
+        message="Invalid Registration Data! Please Try Again"
+        key={"bottom center"}
+      />
+      <AlertDialog
+        open={openState}
+        closeDialog={closeDialog}
+        title="Verify Email"
+        description="An email verification link has been sent on the given email address.\nPlease verify your email to complete the account setup.\nVerification link is valid for 24 hrs"
+      />
     </Container>
   );
 };

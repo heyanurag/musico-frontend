@@ -6,7 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
-import LaunchPad from "./components/LaunchPad";
+// import LaunchPad from "./components/LaunchPad";
 import Header, { drawerWidth } from "./components/Header";
 
 import "./css/App.css";
