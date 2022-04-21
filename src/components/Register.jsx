@@ -14,11 +14,11 @@ import Select from "@mui/material/Select";
 
 import { Link, Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isLoggedIn } from "../atoms";
+import { user } from "../atoms";
 import Copyright from "./Copyright";
 
 const Register = () => {
-  const loggedIn = useRecoilValue(isLoggedIn);
+  const loggedInUser = useRecoilValue(user);
 
   const [mood, setMood] = useState("");
 
@@ -90,7 +90,7 @@ const Register = () => {
     }
   };
 
-  if (loggedIn) {
+  if (loggedInUser) {
     return <Navigate to="/app" state={{ from: "/" }} replace />;
   }
 

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
-const Home = () => {
+export default function LandingPage() {
   return (
     <>
       <Typography align="center" variant="h2" gutterBottom pt={5}>
@@ -25,9 +25,9 @@ const Home = () => {
           variant="outlined"
           endIcon={<ArrowForwardIcon />}
           component={Link}
-          to="/app"
+          to="/login"
         >
-          Get Started
+          Login
         </Button>
         <Button
           color="secondary"
@@ -41,6 +41,4 @@ const Home = () => {
       </Stack>
     </>
   );
-};
-
-export default Home;
+}

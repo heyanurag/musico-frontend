@@ -17,11 +17,22 @@ import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import InfoIcon from "@mui/icons-material/Info";
 import makeStyles from "@mui/styles/makeStyles";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
-const listData = [
+import { useRecoilValue } from "recoil";
+import { user } from "../atoms";
+
+const authenticatedListData = [
   { id: "0", name: "Home", Icon: HomeIcon, routeName: "/" },
   { id: "1", name: "Friends", Icon: PeopleIcon, routeName: "/friends" },
   { id: "2", name: "About", Icon: InfoIcon, routeName: "/about" },
+];
+
+const listData = [
+  { id: "0", name: "Home", Icon: HomeIcon, routeName: "/" },
+  { id: "1", name: "Login", Icon: LoginIcon, routeName: "/login" },
+  { id: "2", name: "Register", Icon: PersonAddAltIcon, routeName: "/register" },
 ];
 
 export const drawerWidth = 280;
@@ -37,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "&:hover .icon, &:hover .text ": {
       color: theme.palette.primary.main,
-    }
+    },
   },
   inActive: {
     borderRadius: 15,
@@ -46,7 +57,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
+  const loggedInUser = useRecoilValue(user);
+
   const styles = useStyles();
+
+  const navigationList = !loggedInUser ? listData : authenticatedListData;
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -92,8 +107,8 @@ const Header = (props) => {
         </Typography>
       </Box>
       <Divider />
-      <List sx={{ overflow: "hidden"}}>
-        {listData.map(({ name, id, Icon, routeName }) => (
+      <List sx={{ overflow: "hidden" }}>
+        {navigationList.map(({ name, id, Icon, routeName }) => (
           <ListItem
             component={CustomLink}
             to={routeName}

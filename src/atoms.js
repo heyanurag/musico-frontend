@@ -17,10 +17,10 @@ const localStorageEffect =
     });
   };
 
-export const isLoggedIn = atom({
-  key: "isLoggedIn",
-  default: true,
-  effects_UNSTABLE: [localStorageEffect("isLoggedIn")],
+export const user = atom({
+  key: "user",
+  default: null,
+  effects_UNSTABLE: [localStorageEffect("user")],
 });
 
 export const topMusicState = atom({
