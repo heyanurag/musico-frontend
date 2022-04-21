@@ -65,7 +65,7 @@ const Register = () => {
       email: data.get("email").trim(),
       password: data.get("password").trim(),
       name: data.get("Name").trim(),
-      // mood: data.get("mood").trim(),
+      mood: data.get("mood").trim(),
     };
 
     let submit = true;

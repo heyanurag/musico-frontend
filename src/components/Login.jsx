@@ -13,15 +13,34 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Snackbar from "@mui/material/Snackbar";
+import Slide from "@mui/material/Slide";
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { user } from "../atoms";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Copyright from "./Copyright";
+import axiosInstance from "../axios";
+import { useSetRecoilState, useRecoilState } from "recoil";
+
+function TransitionLeft(props) {
+  return <Slide {...props} direction="left" />;
+}
 
 const Login = () => {
+  const setUser = useSetRecoilState(user);
+  const navigate = useNavigate();
+
   const [emailError, setEmailError] = useState(false);
   const [passError, setPassError] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [transition, setTransition] = useState(undefined);
+  const [message, setMessage] = useState(
+    "Invalid Login Credentials! Please Try Again"
+  );
+
+  const handleClose = () => setOpen(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -58,6 +77,53 @@ const Login = () => {
     if (submit) {
       //PERFORM AXIOS POST HERE
       console.log(formData);
+      axiosInstance
+        .post(`auth/login`, {
+          email: formData.email,
+          password: formData.password,
+        })
+        .then((res) => {
+          console.log(res);
+          console.log(res.data);
+
+          localStorage.setItem(
+            "access_token",
+            res.data.user_data.tokens.access
+          );
+          localStorage.setItem(
+            "refresh_token",
+            res.data.user_data.tokens.refresh
+          );
+
+          axiosInstance.defaults.headers["Authorization"] =
+            "Bearer " + localStorage.getItem("access_token");
+
+          setUser({
+            name: res.data.name,
+            email: res.data.email,
+            user_id: res.data.user_id,
+            mood: res.data.mood,
+          });
+
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          if (
+            err.response.status === 401 &&
+            err.response.data.detail === "Invalid credentials, try again"
+          ) {
+            setTransition(() => TransitionLeft);
+            setOpen(true);
+          } else if (
+            err.response.status === 401 &&
+            err.response.data.detail === "Email is not verified"
+          ) {
+            setMessage("Please validate your email! Check your inbox");
+            setTransition(() => TransitionLeft);
+            setOpen(true);
+          }
+        });
     }
   };
 
@@ -121,6 +187,14 @@ const Login = () => {
         </Box>
       </Box>
       <Copyright sx={{ mt: 3 }} />
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={transition}
+        message={message}
+        key={"bottom center"}
+      />
     </Container>
   );
 };
