@@ -19,7 +19,7 @@ const localStorageEffect =
 
 export const user = atom({
   key: "user",
-  default: false,
+  default: null,
   effects_UNSTABLE: [localStorageEffect("user")],
 });
 
