@@ -28,6 +28,11 @@ export const nowPlaying = atom({
   default: null,
 });
 
+export const tracks = atom({
+  key: "tracks",
+  default: [],
+});
+
 export const topMusicState = atom({
   key: "topMusic",
   default: [

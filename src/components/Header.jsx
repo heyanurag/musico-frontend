@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import PeopleIcon from "@mui/icons-material/People";
+import SearchIcon from "@mui/icons-material/Search";
 import InfoIcon from "@mui/icons-material/Info";
 import makeStyles from "@mui/styles/makeStyles";
 import LoginIcon from "@mui/icons-material/Login";
@@ -25,7 +25,7 @@ import { user, nowPlaying } from "../atoms";
 
 const authenticatedListData = [
   { id: "0", name: "Home", Icon: HomeIcon, routeName: "/" },
-  { id: "1", name: "Friends", Icon: PeopleIcon, routeName: "/friends" },
+  { id: "1", name: "Search", Icon: SearchIcon, routeName: "/search" },
   { id: "2", name: "About", Icon: InfoIcon, routeName: "/about" },
 ];
 

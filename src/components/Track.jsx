@@ -27,7 +27,7 @@ const Track = ({ track }) => {
             <img src={track.album.images[2].url} />
           </Grid>
           <Grid item>
-            <div>{track.name}</div>
+            <span style={{ textOverflow: "ellipsis" }}>{track.name}</span>
           </Grid>
         </Grid>
       </Grid>

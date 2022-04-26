@@ -5,11 +5,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AudioCard } from "material-ui-player";
 import Webcam from "react-webcam";
 import { useRecoilState } from "recoil";
-import { nowPlaying } from "../atoms";
+import { nowPlaying, tracks } from "../atoms";
 import axiosInstance from "../axios";
 import ImageSlider from "./ImageSlider";
 import Track from "./Track";
@@ -18,9 +18,25 @@ const videoConstraints = {
   facingMode: "user",
 };
 
+const AudioPlayer = () => {
+  const [nowP, setNowP] = useRecoilState(nowPlaying);
+
+  return (
+    <AudioCard
+      src={nowP ? nowP.preview_url : ""}
+      thickness="thin"
+      color="secondary"
+      mute
+      width={300}
+      autoplay
+    />
+  );
+};
+
 const Home = () => {
-  const [tracks, setTracks] = useState([]);
   const [mood, setMood] = useState(null);
+  const [trks, settrks] = useRecoilState(tracks);
+  // const [tracks, setTracks] = useState([]);
   const [nowP, setNowP] = useRecoilState(nowPlaying);
   const handleSearch = (event) => {
     if (event.keyCode !== 13 || event.target.value === "") return;
@@ -39,9 +55,21 @@ const Home = () => {
       const songs = data.tracks.filter((tr) => tr.preview_url !== null);
       console.log(songs);
       setMood(data.mood);
-      setTracks(songs);
+      settrks(songs);
     });
   };
+
+  useEffect(() => {
+    if (trks.length === 0) {
+      axiosInstance.get("mood/get_popular").then((res) => {
+        const data = res.data;
+        console.log(data);
+        const songs = data.tracks.filter((tr) => tr.preview_url !== null);
+        console.log(songs);
+        settrks(songs);
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -66,8 +94,8 @@ const Home = () => {
               overflow: "scroll",
             }}
           >
-            {tracks.length > 0
-              ? tracks.map((tr) => (
+            {trks.length > 0
+              ? trks.map((tr) => (
                   <div key={tr.uri}>
                     <Track track={tr} />
                     <Divider />
@@ -113,15 +141,7 @@ const Home = () => {
           </Webcam>
         </Grid>
       </Grid>
-      <AudioCard
-        // src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        src={nowP ? nowP.preview_url : ""}
-        thickness="thin"
-        color="secondary"
-        mute
-        width={300}
-        autoplay
-      />
+      <AudioPlayer />
       {/* <Box compo sx={{flex: 1, bgcolor: "#ff0000"}} /> */}
     </>
   );
