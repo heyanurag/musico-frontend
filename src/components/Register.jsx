@@ -25,6 +25,8 @@ function TransitionLeft(props) {
   return <Slide {...props} direction="left" />;
 }
 
+const defaultMoods = ["angry", "happy", "neutral", "sad", "surprise"];
+
 const Register = () => {
   const loggedInUser = useRecoilValue(user);
   const navigate = useNavigate();
@@ -64,7 +66,7 @@ const Register = () => {
     const formData = {
       email: data.get("email").trim(),
       password: data.get("password").trim(),
-      name: data.get("Name").trim(),
+      name: data.get("name").trim(),
       mood: data.get("mood").trim(),
     };
 
@@ -151,11 +153,11 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
-                name="Name"
+                name="name"
                 required
                 fullWidth
-                id="Name"
-                label="Name"
+                id="name"
+                label="name"
                 autoFocus
                 error={nameError}
               />
@@ -196,11 +198,15 @@ const Register = () => {
                   error={moodError}
                   required
                 >
-                  <MenuItem value="Happy">Happy</MenuItem>
-                  <MenuItem value="Sad">Sad</MenuItem>
-                  <MenuItem value="Angry">Angry</MenuItem>
-                  <MenuItem value="Anxious">Anxious</MenuItem>
-                  <MenuItem value="Excited">Excited</MenuItem>
+                  {defaultMoods.map((item) => (
+                    <MenuItem
+                      key={item}
+                      value={item}
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {item}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Grid>
