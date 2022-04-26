@@ -26,14 +26,12 @@ let theme = createTheme({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <RecoilRoot>
-          <App />
-        </RecoilRoot>
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </ThemeProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );

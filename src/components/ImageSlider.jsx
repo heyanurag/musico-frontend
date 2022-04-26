@@ -94,8 +94,8 @@ export default function ImageSlider() {
                 src={imgUrl}
                 alt={name}
                 style={{
-                  width: 200,
-                  height: 200,
+                  width: 175,
+                  height: 175,
                   borderRadius: 15,
                   cursor: "pointer",
                 }}

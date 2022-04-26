@@ -21,7 +21,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
 import { useRecoilValue } from "recoil";
-import { user } from "../atoms";
+import { user, nowPlaying } from "../atoms";
 
 const authenticatedListData = [
   { id: "0", name: "Home", Icon: HomeIcon, routeName: "/" },
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
   const loggedInUser = useRecoilValue(user);
+  const nowP = useRecoilValue(nowPlaying);
 
   const styles = useStyles();
 
@@ -124,6 +125,20 @@ const Header = (props) => {
           </ListItem>
         ))}
       </List>
+      <Divider />
+      {nowP && (
+        <>
+          <Typography
+            align="center"
+            variant="h6"
+            sx={{ color: "secondary.main" }}
+            gutterBottom
+          >
+            Now Playing
+          </Typography>
+          <img src={nowP.album.images[1].url} width={125} />
+        </>
+      )}
     </div>
   );
 

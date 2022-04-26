@@ -23,6 +23,11 @@ export const user = atom({
   effects_UNSTABLE: [localStorageEffect("user")],
 });
 
+export const nowPlaying = atom({
+  key: "nowPlaying",
+  default: null,
+});
+
 export const topMusicState = atom({
   key: "topMusic",
   default: [
