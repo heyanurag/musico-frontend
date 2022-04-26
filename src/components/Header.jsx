@@ -133,10 +133,40 @@ const Header = (props) => {
             variant="h6"
             sx={{ color: "secondary.main" }}
             gutterBottom
+            pt={1}
           >
             Now Playing
           </Typography>
-          <img src={nowP.album.images[1].url} width={125} />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src={nowP.album.images[1].url} width={125} />
+          </div>
+          <Typography align="center" variant="subtitle2" gutterBottom pt={1}>
+            {nowP.name}
+          </Typography>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {nowP.artists.map((artist) => (
+              <Typography
+                component="span"
+                align="center"
+                variant="subtitle2"
+                gutterBottom
+              >
+                {artist.name},&nbsp;
+              </Typography>
+            ))}
+          </div>
         </>
       )}
     </div>
