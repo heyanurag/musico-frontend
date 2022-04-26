@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
@@ -11,10 +11,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 
-import { topMusicState } from "../atoms";
+import { topMusicState, nowPlaying } from "../atoms";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { drawerWidth } from "./Header";
 import makeStyles from "@mui/styles/makeStyles";
+import axiosInstance from "../axios";
 
 const useStyles = makeStyles((theme) => ({
   iconBtn: {
@@ -40,15 +41,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ImageSlider() {
   const [topMusic, setTopMusic] = useRecoilState(topMusicState);
-
+  const [nowP, setNowP] = useRecoilState(nowPlaying);
   const [scrollX, setScrollX] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
   const { width: windowWidth } = useWindowDimensions();
   const listRef = useRef(null);
   const classes = useStyles();
 
-  const handleClick = (id) => {
-    // music card click handler
+  const handleClick = (tr) => {
+    setNowP(tr);
   };
 
   const handleNext = () => {
@@ -72,6 +73,14 @@ export default function ImageSlider() {
     listRef.current.scrollTo(width, 0);
   };
 
+  useEffect(() => {
+    axiosInstance.get("mood/get_popular").then((res) => {
+      const data = res.data;
+      const songs = data.tracks.filter((tr) => tr.preview_url !== null);
+      setTopMusic(songs);
+    });
+  }, []);
+
   return (
     <Box sx={{ mt: 3 }}>
       <Typography variant="h5" noWrap component="div">
@@ -88,18 +97,18 @@ export default function ImageSlider() {
           gap={10}
         >
           <Box sx={{ ml: 1 }} />
-          {topMusic.map(({ id, name, imgUrl }) => (
-            <ImageListItem key={id}>
+          {topMusic.map((tr) => (
+            <ImageListItem key={tr.uri}>
               <img
-                src={imgUrl}
-                alt={name}
+                src={tr.album.images[1].url || ""}
+                alt={tr.name}
                 style={{
-                  width: 175,
-                  height: 175,
+                  width: 200,
+                  height: 200,
                   borderRadius: 15,
                   cursor: "pointer",
                 }}
-                onClick={() => handleClick(id)}
+                onClick={() => handleClick(tr)}
               />
 
               <ImageListItemBar
@@ -108,11 +117,11 @@ export default function ImageSlider() {
                     "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
                     "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
                 }}
-                title={name}
+                title={tr.name}
                 position="bottom"
-                actionIcon={
-                  <PlayCircleFilledWhiteIcon sx={{ mr: 1 }} htmlColor="#fff" />
-                }
+                // actionIcon={
+                //   <PlayCircleFilledWhiteIcon sx={{ mr: 1 }} htmlColor="#fff" />
+                // }
                 actionPosition="right"
               />
             </ImageListItem>

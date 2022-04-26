@@ -18,21 +18,6 @@ const videoConstraints = {
   facingMode: "user",
 };
 
-const AudioPlayer = () => {
-  const [nowP, setNowP] = useRecoilState(nowPlaying);
-
-  return (
-    <AudioCard
-      src={nowP ? nowP.preview_url : ""}
-      thickness="thin"
-      color="secondary"
-      mute
-      width={300}
-      autoplay
-    />
-  );
-};
-
 const Home = () => {
   const [mood, setMood] = useState(null);
   const [trks, settrks] = useRecoilState(tracks);
@@ -141,7 +126,14 @@ const Home = () => {
           </Webcam>
         </Grid>
       </Grid>
-      <AudioPlayer />
+      <AudioCard
+        src={nowP ? nowP.preview_url : ""}
+        thickness="thin"
+        color="secondary"
+        mute
+        width={300}
+        autoplay
+      />
       {/* <Box compo sx={{flex: 1, bgcolor: "#ff0000"}} /> */}
     </>
   );

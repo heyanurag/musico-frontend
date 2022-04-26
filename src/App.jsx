@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
+import SearchMusic from "./components/SearchMusic";
 import Header, { drawerWidth } from "./components/Header";
 
 import "./css/App.css";
@@ -38,6 +39,7 @@ const App = () => {
           ) : (
             <>
               <Route path="/" element={<Home />} />
+              <Route path="/search" element={<SearchMusic />} />
               <Route
                 path="*"
                 element={
