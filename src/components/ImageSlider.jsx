@@ -102,12 +102,7 @@ export default function ImageSlider() {
               <img
                 src={tr.album.images[1].url || ""}
                 alt={tr.name}
-                style={{
-                  width: 200,
-                  height: 200,
-                  borderRadius: 15,
-                  cursor: "pointer",
-                }}
+                className="w-48 h-48 rounded-2xl cursor-pointer max-w-none"
                 onClick={() => handleClick(tr)}
               />
 
