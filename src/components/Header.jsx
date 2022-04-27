@@ -19,8 +19,9 @@ import InfoIcon from "@mui/icons-material/Info";
 import makeStyles from "@mui/styles/makeStyles";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { user, nowPlaying } from "../atoms";
 
 const authenticatedListData = [
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = (props) => {
-  const loggedInUser = useRecoilValue(user);
+  const [loggedInUser, setLoggedInUser] = useRecoilState(user);
   const nowP = useRecoilValue(nowPlaying);
 
   const styles = useStyles();
@@ -70,6 +71,10 @@ const Header = (props) => {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
   };
 
   const CustomLink = useMemo(() =>
@@ -90,85 +95,98 @@ const Header = (props) => {
   );
 
   const drawer = (
-    <div>
-      <Box sx={{ p: 2 }}>
-        <Typography align="center" variant="h1" pt={2}>
-          🎶
-        </Typography>
-        <Typography
-          align="center"
-          variant="h5"
-          sx={{ color: "secondary.main" }}
-          gutterBottom
-          pt={2}
-        >
-          Musico
-        </Typography>
-        <Typography align="center" variant="subtitle2" gutterBottom>
-          Explore Top Music Powered by your Scrobbles!
-        </Typography>
-      </Box>
-      <Divider />
-      <List sx={{ overflow: "hidden" }}>
-        {navigationList.map(({ name, id, Icon, routeName }) => (
-          <ListItem
-            component={CustomLink}
-            to={routeName}
-            button
-            key={id}
-            activeClass={styles.active}
-            inActiveClass={styles.inActive}
-          >
-            <ListItemIcon>
-              <Icon className="icon" />
-            </ListItemIcon>
-            <ListItemText className="text" primary={name} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      {nowP && (
-        <>
+    <div className="flex flex-col justify-between min-h-screen">
+      <div>
+        <Box sx={{ p: 2 }}>
+          <Typography align="center" variant="h2" pt={2}>
+            🎶
+          </Typography>
           <Typography
             align="center"
-            variant="h6"
+            variant="h5"
             sx={{ color: "secondary.main" }}
             gutterBottom
             pt={1}
           >
-            Now Playing
+            Musico
           </Typography>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img src={nowP.album.images[1].url} width={125} />
-          </div>
-          <Typography align="center" variant="subtitle2" gutterBottom pt={1}>
-            {nowP.name}
+          <Typography align="center" variant="subtitle2" gutterBottom>
+            Explore Top Music Powered by your Scrobbles!
           </Typography>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {nowP.artists.map((artist) => (
-              <Typography
-                component="span"
-                align="center"
-                variant="subtitle2"
-                gutterBottom
-              >
-                {artist.name},&nbsp;
-              </Typography>
-            ))}
-          </div>
-        </>
+        </Box>
+        <Divider />
+        <List sx={{ overflow: "hidden" }}>
+          {navigationList.map(({ name, id, Icon, routeName }) => (
+            <ListItem
+              component={CustomLink}
+              to={routeName}
+              button
+              key={id}
+              activeClass={styles.active}
+              inActiveClass={styles.inActive}
+            >
+              <ListItemIcon>
+                <Icon className="icon" />
+              </ListItemIcon>
+              <ListItemText className="text" primary={name} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        {nowP && (
+          <>
+            <Typography
+              align="center"
+              variant="h6"
+              sx={{ color: "secondary.main" }}
+              gutterBottom
+              pt={1}
+            >
+              Now Playing
+            </Typography>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img src={nowP.album.images[1].url} width={125} />
+            </div>
+            <Typography align="center" variant="subtitle2" gutterBottom pt={1}>
+              {nowP.name}
+            </Typography>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {nowP.artists.map((artist) => (
+                <Typography
+                  component="span"
+                  align="center"
+                  variant="subtitle2"
+                  gutterBottom
+                >
+                  {artist.name},&nbsp;
+                </Typography>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      {loggedInUser && (
+        <div
+          onClick={handleLogout}
+          className={`flex items-center w-max bg-[#735bc1] shadow-lg shadow-violet-900 rounded-lg px-5 py-2 gap-x-2 self-end cursor-pointer ${
+            nowP ? "m-2" : "m-6"
+          }`}
+        >
+          <LogoutIcon className="text-white" />
+          <div className="text-white">Logout</div>
+        </div>
       )}
     </div>
   );
