@@ -11,6 +11,7 @@ import Header, { drawerWidth } from "./components/Header";
 
 import "./css/App.css";
 import { user } from "./atoms";
+import AboutUS from "./AboutUS";
 
 const App = () => {
   const loggedInUser = useRecoilValue(user);
@@ -34,12 +35,14 @@ const App = () => {
               <Route path="/" element={<LandingPage />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/aboutus" element={<AboutUS />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </>
           ) : (
             <>
               <Route path="/" element={<Home />} />
               <Route path="/search" element={<SearchMusic />} />
+              <Route path="/aboutus" element={<AboutUS />} />
               <Route
                 path="*"
                 element={

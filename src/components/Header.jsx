@@ -26,13 +26,14 @@ import { user, nowPlaying } from "../atoms";
 const authenticatedListData = [
   { id: "0", name: "Home", Icon: HomeIcon, routeName: "/" },
   { id: "1", name: "Search", Icon: SearchIcon, routeName: "/search" },
-  { id: "2", name: "About", Icon: InfoIcon, routeName: "/about" },
+  { id: "2", name: "About US", Icon: InfoIcon, routeName: "/aboutus" },
 ];
 
 const listData = [
   { id: "0", name: "Home", Icon: HomeIcon, routeName: "/" },
   { id: "1", name: "Login", Icon: LoginIcon, routeName: "/login" },
   { id: "2", name: "Register", Icon: PersonAddAltIcon, routeName: "/register" },
+  { id: "2", name: "About US", Icon: InfoIcon, routeName: "/aboutus" },
 ];
 
 export const drawerWidth = 280;
