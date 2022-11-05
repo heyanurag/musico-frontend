@@ -1,6 +1,12 @@
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:8000/";
+let baseURL;
+
+if (import.meta.env.PROD) {
+  baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
+} else {
+  baseURL = "http://127.0.0.1:8000/";
+}
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
