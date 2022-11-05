@@ -6,35 +6,12 @@ export default function AboutUS() {
   return (
     <div className="min-h-full">
       <div className="flex items-center gap-5 mb-3">
-        <div className="text-3xl text-[#735bc1]">About US</div>
-        <a target="_blank" href="https://github.com/MusicoKJSCE">
+        <div className="text-3xl text-[#735bc1]">About</div>
+        <a target="_blank" href="https://github.com/heyanurag/musico-frontend">
           <GitHubIcon className="text-2xl" />
         </a>
       </div>
       <Divider className="my-5" />
-
-      <div>
-        <div className="text-center text-xl mb-5">Team Members</div>
-        <div className="flex flex-wrap justify-evenly gap-y-4 gap-x-1">
-          <div className="flex flex-col items-center py-4 px-2 sm:px-4 rounded-xl bg-white shadow-xl shadow-slate-400">
-            <PersonIcon className="text-9xl" />
-            <div className="text-lg">Anurag Singh</div>
-          </div>
-          <div className="flex flex-col items-center py-4 px-2 sm:p-4 rounded-xl bg-white shadow-xl shadow-slate-400">
-            <PersonIcon className="text-9xl" />
-            <div className="text-lg">Dhruv Solanki</div>
-          </div>
-          <div className="flex flex-col items-center py-4 px-2 sm:p-4 rounded-xl bg-white shadow-xl shadow-slate-400">
-            <PersonIcon className="text-9xl" />
-            <div className="text-lg">Umang Thadani</div>
-          </div>
-          <div className="flex flex-col items-center py-4 px-2 sm:p-4 rounded-xl bg-white shadow-xl shadow-slate-400">
-            <PersonIcon className="text-9xl" />
-            <div className="text-lg">Aayush Kapoor</div>
-          </div>
-        </div>
-        <Divider className="my-5" />
-      </div>
 
       <div>
         <div className="text-center text-xl mb-5">Problem Definition</div>

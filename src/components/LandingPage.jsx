@@ -9,35 +9,47 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 export default function LandingPage() {
   return (
     <>
-      <Typography align="center" variant="h2" gutterBottom pt={5}>
+      {/* <Typography align="center" variant="h2" gutterBottom pt={5}>
         Musico 🎶
       </Typography>
       <Typography align="center" gutterBottom>
         Explore Top Music Powered by your Scrobbles!
-      </Typography>
+      </Typography> */}
       <Stack
-        direction="row"
+        direction="column"
         spacing={2}
-        sx={{ display: "flex", justifyContent: "center", pt: 3 }}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: 4,
+          pt: 3,
+        }}
       >
-        <Button
-          color="secondary"
-          variant="outlined"
-          endIcon={<ArrowForwardIcon />}
-          component={Link}
-          to="/login"
+        <img src="/musico.png" width="750" />
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ display: "flex", justifyContent: "center", pt: 3 }}
         >
-          Login
-        </Button>
-        <Button
-          color="secondary"
-          variant="outlined"
-          endIcon={<AppRegistrationIcon />}
-          component={Link}
-          to="/register"
-        >
-          Register
-        </Button>
+          <Button
+            color="secondary"
+            variant="outlined"
+            endIcon={<ArrowForwardIcon />}
+            component={Link}
+            to="/login"
+          >
+            Login
+          </Button>
+          <Button
+            color="secondary"
+            variant="outlined"
+            endIcon={<AppRegistrationIcon />}
+            component={Link}
+            to="/register"
+          >
+            Register
+          </Button>
+        </Stack>
       </Stack>
     </>
   );
